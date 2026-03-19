@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+  <head>
+	<title>Tour Pending Booking Details</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<?php include('top.inc.php') ?>
+</head>
+<body>
+	<div id="wrapper">
+          <?php include('header.inc.php') ?>	
+          <?php include('left.inc.php') ?>	
+     
+       <div class="main">
+		<div class="main-content">
+			<div class="container-fluid">
+			   <div class="col-md-12">
+            
+            	<div class="panel-heading col-md-12 col-xs-12 padding_opx panel-heading_1">
+					<div class="col-md-12 col-xs-12 padding_opx">
+						<div class="col-md-6 padding_opx">
+							<h3 class="panel-title title_h3"><b> <i class="lnr lnr-arrow-right-circle" aria-hidden="true"></i> Tour Pending Booking Detail </b></h3>
+						</div>
+
+						     <div class="col-md-6 padding_opx">
+								  <a href="<?php echo base_url('admin/toursbooking/view'); ?>" class="btn btn-primary btn-primary1 pull-right margin_bottom">Return Back</a>
+						</div>
+					</div>
+				</div>
+
+
+			<div class="panel">
+			
+				<div class="panel-body">
+
+<!-- Html ##################################################### -->
+
+                   <div class="col-md-12 col-xs-12 margin_top">
+
+                   	<!-- Tour Details Start ########################################-->
+
+            <div class="col-lg-12 col-xs-12">
+
+  <div class="col-lg-6">
+
+    <div class="panel panel-default">
+
+       <div class="panel-heading"> <h5 style="font-size: 18px; margin: 0px;"> <i class="fa fa-bus"></i> Tours </h5> </div>
+
+       <div class="panel-body">
+         <h5 class="font_16px"> <?php echo $toursbooking_details[0]['TourName']; ?> </h5>
+
+         <p class="font_16px"> <?php if($toursbooking_details[0]['NoofNight'] > 0) { echo $toursbooking_details[0]['NoofNight']." Night / "; } if($toursbooking_details[0]['NoofDay']>0) { echo $toursbooking_details[0]['NoofDay']." Day"; } ?>  <!-- Single Day tours --></p>
+
+     <?php /*?>    <p class="font_16px"> <i class="fa fa-clock-o"></i> Departure Time : <?php echo $toursbooking_details[0]['DepartureTime']; ?>  &nbsp; <i class="fa fa-clock-o"></i> Arrival Time : <?php echo $toursbooking_details[0]['ArivalTime']; ?>    </p><?php */?>
+
+         <p class="font_16px"> Place Covered:  <?php echo $toursbooking_details[0]['TourTitle']; ?> </p>
+         
+                  <p class="font_16px">&nbsp;</p>
+       </div>
+      
+    </div>
+  
+  </div>
+
+    <div class="col-lg-6">
+
+    <div class="panel panel-default">
+
+       <div class="panel-heading"> <h5 style="font-size: 18px; margin: 0px;"> <i class="fa fa-user-o"></i> Traveller infomation </h5> </div>
+
+       <div class="panel-body">
+
+        <table class="table">
+         
+         <tbody>
+            
+            <tr>
+               <td class="font_16px" style="border-top: 0px;"> <i class="fa fa-user-o"></i>  Name : </td>
+               <td class="font_16px" style="border-top: 0px;"> <?php echo $toursbooking_details[0]['Name']; ?> </td>
+            </tr>
+
+            <tr>
+               <td class="font_16px"> <i class="fa fa-envelope"></i> Email : </td>
+               <td class="font_16px"> <?php echo $toursbooking_details[0]['Email']; ?> </td>
+            </tr>
+
+            <tr>
+               <td class="font_16px"> <i class="fa fa-phone"></i> Phone No. : </td>
+               <td class="font_16px"> <?php echo $toursbooking_details[0]['PhoneNo']; ?> &nbsp;/&nbsp; <?php echo $toursbooking_details[0]['AltPhoneNo']; ?> </td>
+            </tr>
+            
+              <tr>
+               <td class="font_16px"> <i class="fa fa-envelope"></i>  Address : </td>
+               <td class="font_16px"> <?php echo $toursbooking_details[0]['Address']; ?> <br>
+               
+                 <?php echo $toursbooking_details[0]['City']; ?>  <?php echo $toursbooking_details[0]['State']; ?>,   <?php echo $toursbooking_details[0]['Country']; ?>
+               
+                </td>
+            </tr>
+
+         </tbody> 
+
+
+        </table>
+
+
+ <!--         <h5 class="font_16px">Agra - Mathura - Vrindavan Tour</h5>
+
+         <p class="font_16px">Single Day tours</p>
+
+         <p class="font_16px"> <i class="fa fa-clock-o"></i> Arrival Time : 6.00 Am  &nbsp; <i class="fa fa-clock-o"></i> Departure Time : 11.30 Pm  </p>
+
+         <p class="font_16px"> Palace covered:  Agra, Mathura, Vrindavan</p> -->
+       </div>
+      
+    </div>
+  
+  </div>
+  
+</div>
+
+
+
+
+
+
+    <div class="col-lg-12 col-xs-12">
+
+   <div class="col-lg-12 col-xs-12">
+  
+  <div class="panel panel-default">
+   
+   <div class="panel-heading">
+
+   <h5 style="margin: 0px; font-size: 18px;"> <i class="fa fa-ticket"></i>  Booking Overviews </h5>
+
+   </div>
+
+    <div class="panel-body">
+
+  <table class="table">
+    
+    <tbody>
+       
+       <tr>
+           
+           <th class="font_16px" style="width: 10%;border-top: 0px;"> Tour Name  </th>
+
+           <th class="font_16px" style="width: 10%;border-top: 0px;"> Bus Type </th>
+           <th class="font_16px" style="width: 10%;border-top: 0px;"> Total Traveller  </th>
+             <th class="font_16px" style="width: 10%;border-top: 0px;"> Seat No. </th>
+
+           
+           <th class="font_16px" style="width: 10%;border-top: 0px;"> Journey Date   </th>
+
+           <th class="font_16px" style="width: 10%;border-top: 0px;"> Return Date  </th>
+
+           <th class="font_16px" style="width: 10%;border-top: 0px;"> Boarding Point  </th>
+
+        </tr>
+
+
+       <tr>
+          <td class="font_16px"> <?php echo $toursbooking_details[0]['TourName']; ?>  </td>
+
+          <td class="font_16px"> <?php echo $toursbooking_details[0]['BusType']; ?>   </td>
+           <td class="font_16px">  <?php echo $toursbooking_details[0]['TotalTravellar']; ?>    </td>
+           <td class="font_16px">  <?php echo $toursbooking_details[0]['SeatNo']; ?>  </td>
+          
+         
+
+         
+ 
+
+          <td class="font_16px"> <?php //echo   $yrdata= strtotime('DepartureDate');
+   
+
+    $yrdata = $toursbooking_details[0]['DepartureDate'];  echo date('d-M-Y', strtotime($yrdata));   ?>   </td>
+
+          <td class="font_16px"> <?php //echo   $yrdata= strtotime('DepartureDate');
+   
+
+    $yrdata = $toursbooking_details[0]['DepartureDate'];     echo date('d-M-Y', strtotime($yrdata. ' + '.$toursbooking_details[0]['NoofNight'].' days'));  ?>   </td>
+
+          <td class="font_16px"> <?php echo $toursbooking_details[0]['BoardingPoint']; ?>  : <?php echo $toursbooking_details[0]['ArivalTime']; ?> </td>
+
+
+       </tr> 
+
+    </tbody>
+
+  </table>
+
+            <?php echo $toursbooking_details[0]['BookingNote']; ?>
+  </div>
+
+</div>
+
+</div>
+
+<div class="col-lg-12">
+  
+    <div class="panel panel-default">
+   
+   <div class="panel-heading">
+   <h5 style="margin: 0px; font-size: 18px;"> <i class="fa fa-inr"></i>  Price </h5>
+   </div>
+
+    <div class="panel-body">
+
+
+  <table class="table">
+    <tbody>
+      <tr>
+          <th class="font_16px" style="width: 10%;border-top: 0px;"> Ticket No. </th>
+          <th class="font_16px" style="width: 10%;border-top: 0px;"> Booking Amount </th>
+          
+          <th class="font_16px" style="width: 10%;border-top: 0px;"> Pickup Charges    </th>
+          <th class="font_16px" style="width: 10%;border-top: 0px;"> GST  </th>
+           <?php if($toursbooking_details[0]['CouponPrice'] > 0) { ?>   
+                   <th class="font_16px" style="width: 10%;border-top: 0px;"> Coupon Amount  </th>
+                <?php } ?>   
+          
+          <th class="font_16px" style="width: 10%;border-top: 0px;"> Total Paid Amount  </th>
+      </tr>
+
+
+       <tr>
+       
+           <td class="font_16px">  <?php echo $toursbooking_details[0]['BookingRefrenceNo']; ?>  </td>
+           <td class="font_16px"> <i class="fa fa-inr"></i> 
+      <?php
+               $CouponPrice=0;
+              $IsSingel=$toursbooking_details[0]['IsSingel'];
+          
+         if($IsSingel=='Y') 
+            {
+                  echo $totalfare=$toursbooking_details[0]['BusFare']*$toursbooking_details[0]['TotalTravellar']; 
+          } 
+          else
+           {
+              echo $totalfare=$toursbooking_details[0]['BusFare']; 
+           }  
+       
+       ?>    </td>
+           
+             <td class="font_16px"> <i class="fa fa-inr"></i>  <?php echo $totalpickupcharge=$toursbooking_details[0]['TotalPrice']; ?>  </td>
+          <td class="font_16px"> <i class="fa fa-inr"></i> <?php echo $totalgst=$toursbooking_details[0]['TotalGst']; ?>  </td>
+          
+         <?php if($toursbooking_details[0]['CouponPrice'] > 0) { ?> 
+                   <td class="font_16px"> <i class="fa fa-inr"></i> -<?php   echo $CouponPrice= $toursbooking_details[0]['CouponPrice']  ?>  </td>
+                 <?php } ?>
+          <td class="font_16px"> <i class="fa fa-inr"></i> <?php echo $garndtotal = $totalfare+$totalgst+$totalpickupcharge-$CouponPrice;  ?>   </td>
+       </tr> 
+
+    </tbody>
+
+  </table>
+
+
+       
+       
+       
+
+    </div>
+
+   </div>   
+
+
+
+</div> 
+
+
+
+</div>
+
+
+
+
+                    
+
+
+                    <!-- Tour Details End ########################################### -->
+      
+						</div>
+
+<!--Html ##################################################  -->
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+     
+     
+		
+        
+		<div class="clearfix"></div>
+		<?php include('footer.inc.php') ?>	
+	</div>
+	
+
+</body>
+</html>

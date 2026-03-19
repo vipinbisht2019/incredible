@@ -1,0 +1,7 @@
+[18-May-2017 10:34:43 UTC] PHP Fatal error:  Call to undefined function mb_internal_encoding() in /home/mmaoffice/public_html/ez/includes/filemanager/config/config.php on line 4
+[18-May-2017 10:35:14 UTC] PHP Fatal error:  Call to undefined function mb_internal_encoding() in /home/mmaoffice/public_html/ez/includes/filemanager/config/config.php on line 4
+[18-May-2017 10:35:24 UTC] PHP Fatal error:  Call to undefined function mb_internal_encoding() in /home/mmaoffice/public_html/ez/includes/filemanager/config/config.php on line 4
+[13-Jun-2017 20:42:34 Europe/Rome] PHP Warning:  unlink(../source/FY 2015 Notes to the  Financials through July v2.pdf): No such file or directory in /home/mmaoffice/public_html/ez/includes/filemanager/execute.php on line 98
+[13-Jul-2017 02:06:01 Europe/Rome] PHP Warning:  unlink(../source/Annual Meeting Agenda 2017 3.9.2017.pdf): No such file or directory in /home/mmaoffice/public_html/ez/includes/filemanager/execute.php on line 98
+[21-Sep-2017 05:52:36 Europe/Rome] PHP Warning:  unlink(../source/Report 4.3 Executive Vice President Business Services_1.pdf): No such file or directory in /home/mmaoffice/public_html/ez/includes/filemanager/execute.php on line 98
+[17-Oct-2017 00:31:24 Europe/Rome] PHP Warning:  unlink(../source/MMA_Foundation_Balance_Sheet_2016.3.8_2.pdf): No such file or directory in /home/mmaoffice/public_html/ez/includes/filemanager/execute.php on line 98

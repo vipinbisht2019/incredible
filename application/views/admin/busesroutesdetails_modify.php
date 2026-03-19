@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Buses & Routes Details Add</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<?php include('top.inc.php') ?>
+<script type="text/javascript" src="<?php echo base_url('assets/tinymce/tinymce.min.js') ?>"></script>
+<script type="text/javascript">
+tinymce.init({
+	selector: "#Description",
+	formats: {
+	alignleft: {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'left'},
+	aligncenter: {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'center'},
+	alignright: {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'right'},
+	alignjustify: {selector : 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes : 'full'},
+	bold: {inline : 'span', 'classes' : 'bold'},
+	italic: {inline : 'span', 'classes' : 'italic'},
+	underline: {inline : 'span', 'classes' : 'underline', exact : true},
+	strikethrough: {inline : 'del'},
+	forecolor: {inline : 'span', classes : 'forecolor', styles : {color : '%value'}},
+	hilitecolor: {inline : 'span', classes : 'hilitecolor', styles : {backgroundColor : '%value'}},
+	custom_format: {block : 'h1', attributes : {title : 'Header'}, styles : {color : 'red'}}
+  },
+
+	
+    theme: "modern",
+    width: 680,
+    height: 300,
+    link_list: [
+        {title: 'My page 1', value: 'http://www.tinymce.com'},
+        {title: 'My page 2', value: 'http://www.tecrail.com'}
+    ],
+	
+	
+    plugins: [
+         "code advlist autolink link image lists charmap print preview hr anchor pagebreak",
+         "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
+         "table contextmenu directionality emoticons paste textcolor responsivefilemanager "
+   ],
+   
+    relative_urls: false,
+	convert_urls: false,
+	remove_script_host : false,
+    browser_spellcheck : true ,
+    filemanager_title:"Responsive Filemanager",
+    external_filemanager_path:"<?php echo base_url('assets/filemanager/'); ?>",
+    external_plugins: { "filemanager" : "<?php echo base_url('assets/filemanager/plugin.min.js') ?>"},
+    codemirror: {
+    indentOnInit: true, // Whether or not to indent code on init.   codemirror qrcode flickr picasa easyColorPicker
+    path: '<?php echo base_url()  ?>assets/tinymce'
+  },
+  
+   image_advtab: false,
+   toolbar1: "code | undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+   toolbar2: "| responsivefilemanager | image | media | link unlink anchor | print preview code  | youtube | qrcode | flickr | picasa | forecolor backcolor | easyColorPicker"
+ });
+
+
+
+
+
+jQuery(document).ready(function ($) {
+      $('.iframe-btn').fancybox({
+			  'width'	: 880,
+			  'height'	: 570,
+			  'type'	: 'iframe',
+			  'autoScale'   : false
+      });
+      
+ 
+			//
+			// Handles message from ResponsiveFilemanager
+			//
+			function OnMessage(e){
+			  var event = e.originalEvent;
+			   // Make sure the sender of the event is trusted
+			   if(event.data.sender === 'responsivefilemanager'){
+			      if(event.data.field_id){
+			      	var fieldID=event.data.field_id;
+			      	var url=event.data.url;
+							$('#'+fieldID).val(url).trigger('change');
+							$.fancybox.close();
+
+							// Delete handler of the message from ResponsiveFilemanager
+							$(window).off('message', OnMessage);
+			      }
+			   }
+			}
+
+		  // Handler for a message from ResponsiveFilemanager
+			$('.iframe-btn').on('click',function(){
+			  $(window).on('message', OnMessage);
+			});
+
+
+      
+      $('#download-button').on('click', function() {
+	    ga('send', 'event', 'button', 'click', 'download-buttons');      
+      });
+      $('.toggle').click(function(){
+	    var _this=$(this);
+	    $('#'+_this.data('ref')).toggle(200);
+	    var i=_this.find('i');
+	    if (i.hasClass('icon-plus')) {
+		  i.removeClass('icon-plus');
+		  i.addClass('icon-minus');
+	    }else{
+		  i.removeClass('icon-minus');
+		  i.addClass('icon-plus');
+	    }
+      });
+});
+
+
+
+function open_popup(url){
+        alert(url);
+        var w = 880;
+        var h = 570;
+        var l = Math.floor((screen.width-w)/2);
+        var t = Math.floor((screen.height-h)/2);
+        var win = window.open(url, 'ResponsiveFilemanager', "scrollbars=1,width=" + w + ",height=" + h + ",top=" + t + ",left=" + l);
+}
+
+</script>
+
+</head>
+  
+<body>
+	<div id="wrapper">
+          <?php include('header.inc.php') ?>	
+          <?php include('left.inc.php') ?>	
+     
+       <div class="main">
+		<div class="main-content">
+			<div class="container-fluid">
+			   <div class="col-md-12">
+
+		   <div class="panel-heading col-md-12 col-xs-12 padding_opx panel-heading_1">
+					<div class="col-md-12 col-xs-12 padding_opx">
+
+						<div class="col-md-6 padding_opx">
+							<h3 class="panel-title title_h3"><b> <i class="lnr lnr-arrow-right-circle" aria-hidden="true"></i>Buses & Routes Details Add</b></h3>
+						</div>
+
+						     <div class="col-md-6 padding_opx">
+								  <a href="<?php echo base_url('admin/busesroutesdetails/view'); ?>" class="btn btn-primary btn-primary1 pull-right margin_bottom">Return Back</a>
+						</div>
+					</div>
+				</div>
+
+			<div class="panel">
+		
+				<div class="panel-body">
+
+<!-- Html ##################################################### -->
+
+                   <div class="col-md-12 col-xs-12 margin_top">
+                   
+                                  <?php
+                                    if($error = $this->session->flashdata('busesroutesdetails')){  ?>
+                                    
+                                      <div class="alert alert-danger alert-dismissable">
+                                          <?= $error ?>
+                                      </div>
+                                    
+                                    <?php        
+                                      }
+									  
+							//echo"<pre>";
+							 //print_r($edit_buses_route_city_time);		  
+						   // echo"</pre>";			  
+                          
+							
+							          // ------------------------------ admin form open ---------------------------------
+										$attributes = array('class' => 'form-auth-small form-inline', 'name'=>'form1', 'id' => 'form1');
+										echo form_open_multipart('admin/busesroutesdetails/edit', $attributes);
+							     ?>
+
+		                
+
+		                		 <div class="col-md-12 padding_opx">
+		                			<label class="col-md-2 text-left padding_opx">
+		                				<span>Route * </span></label>
+		                			   <div class="col-md-5 form-group padding_opx">
+                                        
+                                       <?php
+									      										
+												$js = array(
+												   'id' => 'RoutesId',
+												   'onChange' => 'add_routes(this.value);',
+												   'class' => "form-control margin_bottom"
+												);
+								
+											unset($options);									
+									        $options['']='Select Routes';
+											foreach($dropdown_routes as $val)
+										       {
+											      if($edit_busesroutesdetails[0]['RoutesId']==$val['RoutesId'])
+												       { echo $val['RoutesName'];  break ; }
+											   }		
+											// $selected=
+										     //echo form_dropdown('RoutesId', $options, $selected,$js);
+                                    ?>
+                                 
+                                      </div>
+		                		  </div>
+                                  
+                                   <div class="col-md-12 padding_opx">
+                                    <hr>
+                                   </div>
+                        
+                                  
+		                		 <div class="col-md-12 padding_opx">
+		                			<label class="col-md-2 text-left padding_opx">
+		                				<span>Bus Type*</span></label>
+		                			   <div class="col-md-5 form-group padding_opx">
+                                        <span style="text-align:left; color:#FF0000; font-size:12px;";><?php echo form_error('Route'); ?></span>
+                                        
+                                          <?php
+													unset($options);									
+													$options['']='Select Buses';
+													foreach($dropdown_busestype as $val)
+													   {
+														   $options[$val['TypeId']] = $val['CategoryName']." ".$val['TypeTitle']." Seats[".$val[NumberOfSeats]."]";
+													   }		
+													 $selected=$edit_busesroutesdetails[0]['TypeId'];	
+													 echo form_dropdown('TypeId', $options, $selected,'class="form-control margin_bottom"');
+                                        ?>
+                                      </div>
+                                      <!--You need to specify a bus type for this bus. This will define the number of available seats and the bus seats map if one is uploaded for the bus type.-->
+		                		  </div>
+                                  
+                                  
+                         <div class="col-md-12 padding_opx">
+                         
+		 <?php			
+                $i=0; $j=0;$k=1;
+                $totalstap=count($edit_buses_route_city_time)-1;
+                foreach($edit_buses_route_city_time as $val)
+                     {  
+                            // $data = array('CityId[]'  => $val['CityId']);
+                            //echo form_hidden($data);
+							 $data = array('TimeId[]'  => $val['TimeId']);
+                             echo form_hidden($data);
+				         ?>
+                
+                           <?php if($i > 0) { ?> 
+                               <div class="col-md-12 form-group padding_opx">
+                                 <div class="col-md-2 form-group padding_opx"><span><?php echo $val['CityName']; ?></span></div>
+                                  <div class="col-md-2 form-group padding_opx"> <span><small>Arrival Time</small></span></div>
+                                 
+                                 
+                               <div class="col-md-3 form-group padding_opx">
+                                      <?php
+                                  $data = array('name'  => 'ArrivalTime['.$k.']', 'id' => 'ArrivalTime', 'value'=>$val['ArrivalTime'], 'placeholder' => '', 'class'=>"form-control margin_bottom");
+                                         echo form_input($data);
+                                        ?>
+                                     </div>
+                          <?php 
+                                  $k++;
+                             }  
+                           if($totalstap!=$i)
+                             {
+                          ?>
+                        
+                     
+                           
+                              <div class="col-md-12 form-group padding_opx">
+                                <div class="col-md-2 form-group padding_opx"> <?php if($i == 0) { echo $val['CityName']; } ?> </div>
+                                
+                                  <div class="col-md-2 form-group padding_opx"> <span><small>Departure Time</small></span></div>
+                              
+                                     <div class="col-md-3 form-group padding_opx">
+                                      <?php
+                             $data = array('name'  => 'DepartureTime['.$j.']', 'id' => 'DepartureTime', 'value'=>$val['DepartureTime'], 'placeholder' => '', 'class'=>"form-control margin_bottom");
+                                         echo form_input($data);
+                                        ?>
+                                     </div>
+                              </div>
+                 
+                        
+                 <?php } $i++; $j++; } ?>            
+            </div>
+                                
+            
+                               
+                                <div class="col-md-12 padding_opx margin_top">
+		                			<label class="col-md-2 text-left padding_opx">
+		                				<span>Period Operating</span></label>
+		                			   <div class="col-md-3 form-group padding_opx">
+                                        <span style="text-align:left; color:#FF0000; font-size:12px;";><?php echo form_error('Route'); ?></span>
+                                       <?php
+									   
+									   $FromOperatingArr=explode("-",$edit_busesroutesdetails[0]['StartDate']); 
+						               $FromOperatingStr=$FromOperatingArr['2']."-".$FromOperatingArr['1']."-".$FromOperatingArr['0'];
+									   
+								
+               $data = array('name'  => 'FromOperating', 'id' => 'datepicker3', 'value'=>$FromOperatingStr, 'placeholder' => 'From', 'class'=>"form-control margin_bottom");
+                       echo form_input($data);
+                                        ?>
+                                      </div>
+                                      
+                                      <div class="col-md-3 form-group padding_opx">
+                                        <span style="text-align:left; color:#FF0000; font-size:12px;";><?php echo form_error('Route'); ?></span>
+                                       <?php
+									   //
+									 $ToOperatingArr=explode("-",$edit_busesroutesdetails[0]['EndDate']);    
+					    	$ToOperatingStr=$ToOperatingArr['2']."-".$ToOperatingArr['1']."-".$ToOperatingArr['0'];  
+									   
+               $data = array('name'  => 'ToOperating', 'id' => 'datepicker2', 'value'=>$ToOperatingStr, 'placeholder' => 'To', 'class'=>"form-control margin_bottom");
+                       echo form_input($data);
+                                        ?>
+                                      </div>
+		                		  </div>
+                                  
+                                  
+                                  <div class="col-md-12 padding_opx margin_top">
+		                			<label class="col-md-2 text-left padding_opx">
+		                			   <span>Recurring</span></label>
+                                   
+		                			                  <div class="col-md-2 form-group padding_opx">
+															 <?php
+															
+															if($edit_busesroutesdetails[0]['Day1']==1)
+															  { $data = array('name' => 'Day1','checked'=>true, 'id'=> 'IsView', 'value'       => 1); }
+															 else
+															  { $data = array('name' => 'Day1', 'id'=> 'IsView', 'value'       => 1); }  
+                                                                echo form_checkbox($data);
+                                                             ?>
+                                                           Every Monday
+                                                       </div>
+                                                       
+                                                        <div class="col-md-2 form-group padding_opx">
+                                                         <?php 
+														 if($edit_busesroutesdetails[0]['Day2']==2)
+															  { $data = array('name'        => 'Day2', 'checked'=>true,  'id'=> 'day2', 'value' => 2); }
+													        else
+															  { $data = array('name' => 'Day2', 'id'=> 'day2', 'value' => 2); }  		  
+                                                                echo form_checkbox($data);
+                                                             ?>
+                                                             Every Tuesday
+                                                       </div>
+                                                       
+                                                        <div class="col-md-2 form-group padding_opx">
+                                                              <?php 
+															  if($edit_busesroutesdetails[0]['Day3']==3)
+															  { $data = array('name'        => 'Day3', 'checked'=>true,  'id'=> 'day3', 'value' => 3); }
+													        else
+															  {	$data = array('name'        => 'Day3', 'id'=> 'IsView', 'value'       => 3); }
+                                                                echo form_checkbox($data);
+                                                             ?>
+                                                             Every Wednesday
+                                                       </div>
+                                                       
+                                                       
+                                                  
+                                      </div>
+                                      
+                                      
+                                  <div class="col-md-12 padding_opx ">
+		                			<label class="col-md-2 text-left padding_opx">
+		                			   <span></span></label>
+                                   
+		                			         
+															 
+                                                        <div class="col-md-2 form-group padding_opx">
+                                                          <?php
+												
+															  if($edit_busesroutesdetails[0]['Day4']==4)
+															  { $data = array('name'  => 'Day4', 'checked'=>true,  'id'=> 'day4', 'value' => 4); }
+													         else
+															  { $data = array('name' => 'Day4', 'id'=> 'IsView', 'value' => 4); }
+                                                                echo form_checkbox($data);
+                                                             ?>
+                                                             Every Thursday
+                                                       </div>
+                                                       
+                                                       <div class="col-md-2 form-group padding_opx">
+                                                       <?php 
+													     if($edit_busesroutesdetails[0]['Day5']==5)
+															  { $data = array('name'        => 'Day5', 'checked'=>true,  'id'=> 'IsView', 'value'       => 5); }
+															else
+															  { $data = array('name'        => 'Day5', 'id'=> 'IsView', 'value'       => 5);}  
+                                                                echo form_checkbox($data);
+                                                             ?>
+                                                             Every Friday
+                                                       </div>
+                                                       
+                                                        <div class="col-md-2 form-group padding_opx">
+                                                           <?php 
+														       if($edit_busesroutesdetails[0]['Day6']==6)
+															     { $data = array('name'        => 'Day6', 'checked'=>true,  'id' => 'IsView', 'value'=> 6); }
+																else
+																  { $data = array('name'        => 'Day6', 'id' => 'IsView', 'value'       => 6); }
+                                                                echo form_checkbox($data);
+                                                             ?>
+                                                             Every Saturday
+                                                       </div>
+                                                       
+                                                        <div class="col-md-2 form-group padding_opx">
+                                                            <?php 
+															 if($edit_busesroutesdetails[0]['Day7']==7)
+															     { $data = array('name'        => 'Day7','checked'=>true,  'id' => 'IsView', 'value'       => 7); }
+																else
+																 { $data = array('name'        => 'Day7', 'id' => 'IsView', 'value'       => 7); } 
+                                                                echo form_checkbox($data);
+                                                             ?>
+                                                             Every Sunday
+                                                       </div>
+                                                       
+                                                  
+                                      </div>
+            
+                             
+                             <div class="col-md-12 padding_opx margin_top">
+		                			<label class="col-md-2 text-left padding_opx">Sort Order </label>
+		                			<div class="col-md-2 form-group padding_opx">
+                                   <?php
+								     // ------------------------------ adm_status form  ---------------------------------
+								$data = array('name'  => 'SortOrder', 'id' => 'SortOrder', 'value'=>$edit_busesroutesdetails[0]['SortOrder'], 'placeholder' => 'Sort Order', 'class'=>"form-control margin_bottom");
+								echo form_input($data);
+                                    ?>
+		                		  </div>
+                               </div>   
+                               
+            
+                               
+                  
+                               
+                               <div class="col-md-12 padding_opx margin_top">
+		                			<label class="col-md-2 text-left padding_opx"> Status </label>
+		                			<div class="col-md-2 form-group padding_opx">
+                                   <?php
+								     // ------------------------------ adm_status form  ---------------------------------
+											$options = array
+											(
+										    	'Y'         => 'Active',
+											    'N'           => 'Inactive',
+											
+											);
+																		
+											echo form_dropdown('Status', $options, '','class="form-control margin_bottom"');
+											
+											   $data = array('id'  => $val['BusesRoutsId']);
+                                               echo form_hidden($data);
+                                    ?>
+		                		  </div>
+                               </div>   
+                    
+                               <div class="col-md-12 padding_opx">
+                                 <label class="col-md-2 text-left padding_opx"></label>
+                                  <div class="col-md-5 form-group padding_opx">
+
+									<?php
+                                            
+                                        $data = array('flag'  => 'yes');
+                                        echo form_hidden($data);
+                                        //-------------------------------------------------------------------------------------------------------------------			
+                                        $data = array('name'  => 'smt_enter', 'value' => 'Submit',   'class'=>"btn btn-primary");
+                                        echo form_submit($data);
+                                    ?>
+                                    
+                            </div>
+                            </div>
+                                
+						       <?php 
+							           // ------------------------------ admin form open ---------------------------------
+							               echo form_close(); 
+							       ?>
+						</div>
+
+<!--Html ##################################################  -->
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+     
+     
+		
+        
+		<div class="clearfix"></div>
+		<?php //include('footer.inc.php') ?>	
+	</div>
+    
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+	$(function() {
+	$('#datepicker').datepicker('setDate', new Date());
+		$( "#datepicker1" ).datepicker({
+			dateFormat: "dd-mm-yy",
+			//showOn: "both",
+           // buttonImage: "images/calendar.gif",
+			changeMonth: true,
+            changeYear: true,
+            buttonImageOnly: true
+		});
+	});
+	
+	$(function() {
+		$( "#datepicker2" ).datepicker({
+			dateFormat: "dd-mm-yy",
+			//showOn: "both",
+           // buttonImage: "images/calendar.gif",
+			changeMonth: true,
+            changeYear: true,
+            buttonImageOnly: true
+		});
+	});
+	
+		$(function() {
+		$( "#datepicker3" ).datepicker({
+			dateFormat: "dd-mm-yy",
+			//showOn: "both",
+           // buttonImage: "images/calendar.gif",
+			changeMonth: true,
+            changeYear: true,
+            buttonImageOnly: true
+		});
+	});
+	
+		$(function() {
+		$( "#datepicker4" ).datepicker({
+			dateFormat: "dd-mm-yy",
+			//showOn: "both",
+           // buttonImage: "images/calendar.gif",
+			changeMonth: true,
+            changeYear: true,
+            buttonImageOnly: true
+		});
+	});
+	
+		$(function() {
+		$( "#datepicker5" ).datepicker({
+			dateFormat: "dd-mm-yy",
+			//showOn: "both",
+           // buttonImage: "images/calendar.gif",
+			changeMonth: true,
+            changeYear: true,
+            buttonImageOnly: true
+		});
+	});
+</script>
+
+<script language="javascript">
+ function add_routes(str)
+	{
+	    alert(str);
+		jQuery.ajax({
+			url:'<?php echo base_url() ?>admin/busesroutesdetails/routes_view',
+			data:'productId=' + str ,
+			type:'POST',
+			success:function(data){ $('#routesid').html(data);}
+			
+		});
+		
+		
+	}
+	
+</script>
+
+	
+
+</body>
+</html>
